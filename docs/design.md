@@ -2,6 +2,25 @@
 
 Design, 2026-08-28.
 
+> **On this document.** Written 2026-08-28 against the private `imagetools`
+> monorepo, before this code was split into separate repositories. It is
+> preserved as written, unedited, because it is the design record — the
+> silver dye-bleach reasoning and the numerically-solved preset derivations
+> below exist nowhere else. Its present tense describing `internal/...`
+> packages was accurate at the time; read it against the mapping below.
+> Section numbers cited from comments elsewhere in this repository (`§2`,
+> `§4`, `§4.1`, `§5.1`, `§6`, `§9`, ...) refer to this document's own
+> numbering.
+>
+> | Then | Now |
+> |---|---|
+> | `internal/imaging` | `github.com/tom-hoover/darkroom/imaging` — public |
+> | `internal/tone` | `github.com/tom-hoover/darkroom/tone` — public |
+> | `internal/sheet` | `github.com/tom-hoover/darkroom/sheet` — public |
+> | `internal/jobplan` | `github.com/tom-hoover/darkroom/jobplan` — public |
+> | `internal/bw` | belongs to a separate, unpublished tool — not part of this repository |
+> | `tasks/lessons .md` | an internal engineering log kept with that private tool — not published here |
+
 ## 1. What this is
 
 `ciba` is a third command beside `skyburn` and `heic2jpg`. It renders a colour

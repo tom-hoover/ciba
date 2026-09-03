@@ -38,7 +38,7 @@ func writeJPEG(t *testing.T, path string, c color.RGBA) {
 // is already covered there; this only pins the wiring between this command's
 // renderer and the shared job planner.
 //
-// It stays in cmd/ciba, rather than moving to internal/jobplan with the rest
+// It stays in cmd/ciba, rather than moving to darkroom/jobplan with the rest
 // of apply_test.go, because it is the one test in that file that asserts
 // something about ciba specifically: jobplan has no opinion about pixels and
 // its own tests use a renderer that ignores its input.

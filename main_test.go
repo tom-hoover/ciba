@@ -28,14 +28,13 @@ const (
 	argSep      = "\x1f"
 )
 
-// writeJPEGWithExif writes a JPEG to path carrying a real EXIF block, adapted
-// from internal/imaging/decode_test.go's TestExifSurvivesDecodeThenWriteJPEG
-// (jpegWithSegments + minimalExif) so this package can build a fixture that
-// exercises the same metadata path jobplan.Command.RenderFile
-// actually uses, without
-// depending on internal/imaging's unexported test helpers.
+// writeJPEGWithExif writes a JPEG to path carrying a real EXIF block — a
+// minimal JPEG with genuine APP1/EXIF segments, not just JFIF ones — so this
+// package can build a fixture that exercises the same metadata path
+// jobplan.Command.RenderFile actually uses, without depending on
+// darkroom/imaging's unexported test helpers.
 //
-// It lived in apply_test.go until the job planner moved to internal/jobplan;
+// It lived in apply_test.go until the job planner moved to darkroom/jobplan;
 // main_test.go and preview_test.go both build their fixtures with it, so it
 // stays in this package.
 func writeJPEGWithExif(t *testing.T, path string) {

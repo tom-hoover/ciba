@@ -215,7 +215,7 @@ func TestFlatRendersNeutralNeutral(t *testing.T) {
 	}
 }
 
-// TestMidtoneStaysNearNeutral is the regression test for the defect in spec
+// TestMidtoneStaysNearNeutral is the regression test for the defect in docs/design.md
 // §5.1: lowering a channel's Dmax without raising its Dmin lifts that channel
 // at EVERY tone, which is a white-balance error rather than a hue crossover.
 //
@@ -361,7 +361,7 @@ func TestBlueSkyDensifies(t *testing.T) {
 	}
 }
 
-// TestPerChannelCurvesRotateHue pins the design's central claim (spec §2):
+// TestPerChannelCurvesRotateHue pins the design's central claim (docs/design.md §2):
 // the hue crossover is not a separate stage, it is what UNEQUAL per-channel
 // density curves do. The only way to isolate that from plain contrast is to
 // compare a look against a variant of itself with Curve, Pivot, Dmin and
@@ -711,7 +711,7 @@ func TestBloomThresholdIsRespected(t *testing.T) {
 // difference between the preview path and the full-resolution path, in 0-255
 // units, at the 2048px "large" fixture size.
 //
-// This was originally 2.5, carried over in spirit from internal/bw's 2.0 on
+// This was originally 2.5, carried over in spirit from bw's 2.0 on
 // the assumption that a pixel-radius regression there ("measures several
 // units") would look the same here. It does not: bw's clarity acts on the
 // whole tonal buffer, ciba's acts additively on luminance at Clarity
@@ -772,7 +772,7 @@ const cameraResolutionBound = 0.50
 // breaking every real render. One look suffices: the one with the largest
 // clarity amount and the widest bloom.
 //
-// This is a BACKSTOP, not the primary guard. internal/tone's
+// This is a BACKSTOP, not the primary guard. darkroom/tone's
 // TestRadiusPxIsProportionalAtEveryScale is the primary guard for the radius
 // contract: it checks tone.RadiusPx itself, catches a cap at ANY scale to a
 // one-pixel tolerance, and tests up to 16384px — a far tighter check than
@@ -889,12 +889,12 @@ func TestScaleInvarianceHasTeeth(t *testing.T) {
 // differ in normalised-space content sharpness for reasons that have nothing
 // to do with which edge the radius is measured against, so no threshold on
 // that comparison can cleanly attribute what it measures. This is the same
-// failure mode internal/bw's TestClarityRadiusUsesShortEdge documents for its
+// failure mode the other pipeline's equivalent test documents for its
 // own first attempt: a confounded two-frame comparison measured LOWER, not
 // higher, under the bug (1.01 correct vs 0.69 mutated), so it could not
 // discriminate at any threshold.
 //
-// This version instead follows internal/bw's working pattern: one wide frame,
+// This version instead follows the other pipeline's working pattern: one wide frame,
 // so no content difference can confound it. Render's own pointwise stages are
 // reused (calling Render with Clarity and Bloom both zero — under which
 // spatial is a no-op — instead of re-deriving stages 1-5 by hand) to get the
@@ -913,7 +913,7 @@ func TestSpatialRadiiUseTheShortEdge(t *testing.T) {
 	pre := Render(src, noClarity) // stages 1-5 only: spatial is a no-op here
 
 	// Re-derived here rather than read back from tone.RadiusPx, matching
-	// internal/bw's TestClarityRadiusUsesShortEdge: a cap or floor introduced
+	// the other pipeline's equivalent test: a cap or floor introduced
 	// inside RadiusPx would cancel out of both sides of the comparison below
 	// and leave this test green while every render became
 	// resolution-dependent.

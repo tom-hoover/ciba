@@ -14,7 +14,7 @@ const exposureFloor = 1e-6
 
 // Render applies a look to a colour photograph.
 //
-// Stages 1-5 of the design spec's section 4 are pointwise and are done here in
+// Stages 1-5 of docs/design.md's section 4 are pointwise and are done here in
 // a single pass, writing straight into the 8-bit output rather than holding
 // three float planes. The two spatial stages follow in spatial().
 //
@@ -115,7 +115,7 @@ func paperWhite(l Look) [3]float64 {
 // each stage allocate its own set costs six planes rather than three, because
 // at default GOGC the clarity stage's are still live when bloom's are
 // allocated: 52 bytes/px measured on a 3000x2000 render against 28 as it
-// stands. Spec §4.1 has the full accounting.
+// stands. docs/design.md §4.1 has the full accounting.
 //
 // Both radii go through tone.RadiusPx, which is what keeps a contact-sheet
 // tile predictive of the full-resolution render.
@@ -151,7 +151,7 @@ func spatial(out *image.RGBA, l Look) {
 	if bloomR > 0 {
 		// Recomputed after clarity, deliberately: see the ordering rationale
 		// above. No output-difference test at this tolerance separates this
-		// from computing luma once before clarity, but the design spec calls
+		// from computing luma once before clarity, but docs/design.md calls
 		// for luminance measured after clarity, so that is what this does.
 		lumaInto(y, out)
 		// Validate guarantees BloomThresh < 1, so this divisor is non-zero.

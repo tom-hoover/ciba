@@ -46,8 +46,8 @@ func TestContactSheetRendersAtThumbnailScale(t *testing.T) {
 	// property. This absolute cap is a separate tripwire on the resampler's
 	// tap count, and it is deliberately loose: the measured count is logged so
 	// a drift towards the cap is visible on a green run, rather than the cap
-	// firing here and in internal/bw at once and blaming the sheet for a
-	// change in internal/imaging.
+	// firing here and in the other pipeline's equivalent test at once and
+	// blaming the sheet for a change in darkroom/imaging.
 	budget := src * src * 8
 	t.Logf("thumbnailing a %dpx source read it %d times (cap %d, %.1f%% of it)",
 		src, reads, budget, 100*float64(reads)/float64(budget))
@@ -104,7 +104,7 @@ func TestContactSheetTileMatchesDirectRender(t *testing.T) {
 	}
 }
 
-// TestContactSheetPairsEachLookWithItsOwnTile pins the half of spec §9's
+// TestContactSheetPairsEachLookWithItsOwnTile pins the half of docs/design.md §9's
 // second criterion that a single-tile comparison structurally cannot reach:
 // tile i must be Render(thumb, looks[i]), for every i, under the label
 // looks[i].Name.
@@ -115,7 +115,7 @@ func TestContactSheetTileMatchesDirectRender(t *testing.T) {
 // thumbnail differ markedly is the minimum that makes the index observable;
 // the vacuity guard below measures that difference rather than assuming it.
 //
-// Only the tile region is compared, not the label band: internal/sheet's
+// Only the tile region is compared, not the label band: darkroom/sheet's
 // TestContactSheetPairsEachLabelWithItsOwnTile pins the label-to-index pairing
 // inside Build for every caller, and re-deriving glyph positions here would
 // duplicate the geometry that lives in one package on purpose. What this test

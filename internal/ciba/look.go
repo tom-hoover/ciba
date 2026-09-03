@@ -4,8 +4,7 @@
 // fraction of the short edge, so the two differ only by resampling.
 //
 // The look is derived from the silver dye-bleach process rather than from
-// reference scans; see docs/superpowers/specs/2026-08-28-ciba-design.md §2 for
-// the trait-to-parameter mapping.
+// reference scans; see docs/design.md §2 for the trait-to-parameter mapping.
 package ciba
 
 import (
@@ -20,7 +19,7 @@ const DefaultLook = "classic"
 //
 // Radius and BloomRadius are FRACTIONS of the image's short edge, never pixel
 // counts. That is what makes a 256px preview tile predict a full-resolution
-// render; see the design spec §4 and tone.RadiusPx.
+// render; see docs/design.md §4 and darkroom/tone.RadiusPx.
 //
 // Dmin and Dmax own the ends of the tonal range and Curve and Pivot own the
 // middle: tone.Sigmoid is normalised so f(0) = 0 and f(1) = 1 exactly, which
@@ -28,8 +27,8 @@ const DefaultLook = "classic"
 // whatever the curve does. But Dmin and Dmax are COUPLED — the multiplier is
 // (Dmax[c] - Dmin[c]), so lowering one channel's Dmax lifts that channel at
 // every tone, not only in shadow. Compensate by raising the same channel's
-// Dmin by roughly a fifth of the change. Spec §5.1 has the arithmetic and the
-// white-balance error that skipping it produces.
+// Dmin by roughly a fifth of the change. docs/design.md §5.1 has the arithmetic
+// and the white-balance error that skipping it produces.
 type Look struct {
 	Name        string     `json:"name"`
 	Desc        string     `json:"desc"`
@@ -131,8 +130,8 @@ func (l Look) Validate() error {
 // Builtins returns the presets, in the order they appear on a contact sheet.
 //
 // Every Pivot was solved numerically so the look places a neutral sRGB 128
-// where spec §6's "mid" column says, and every Dmin/Dmax pair follows the
-// coupling relation in §5.1. Changing one of a pair without the other
+// where docs/design.md §6's "mid" column says, and every Dmin/Dmax pair
+// follows the coupling relation in §5.1. Changing one of a pair without the other
 // reintroduces a midtone cast; TestMidtoneStaysNearNeutral is the render-side
 // regression test for that, so a retune here is checked against pixel
 // output.
@@ -179,7 +178,7 @@ func Builtins() []Look {
 			// +116, more than double. Skin is a strongly red-dominant midtone,
 			// and a monotone curve applied independently per channel cannot
 			// raise contrast without widening the gaps between channels, which
-			// is the same mechanism spec §2 credits for the saturation.
+			// is the same mechanism docs/design.md §2 credits for the saturation.
 			//
 			// So this is a partial remedy, not a fix, and the parameters were
 			// chosen by measuring the alternatives rather than by taste:

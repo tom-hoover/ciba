@@ -105,8 +105,7 @@ func shadowedLookFiles(name string) []string {
 // silently ignored, which leaves wrecking the values as the only way to find out.
 //
 // Built-ins win deliberately: a stray classic.json in a photo directory must
-// never silently redefine what the shipped look means. This mirrors how
-// skyburn resolves a style against its recipe sidecar, for the same reason.
+// never silently redefine what the shipped look means.
 func resolveLook(name string) (ciba.Look, string, error) {
 	if l, ok := ciba.Lookup(name); ok {
 		for _, path := range shadowedLookFiles(name) {
@@ -238,9 +237,9 @@ func previewDirs() []string {
 //
 // A look file is <name>.json where <name> carries no further extension. That
 // rule exists because the working directory is a photo directory holding JSON
-// that has nothing to do with looks — skyburn writes <base>.recipe.json beside
-// the images it renders — and treating those as looks would fill the sheet with
-// warnings about files nobody meant as looks.
+// that has nothing to do with looks — a companion tool writes
+// <base>.recipe.json beside the images it renders — and treating those as
+// looks would fill the sheet with warnings about files nobody meant as looks.
 func isLookFile(name string) bool {
 	if !strings.EqualFold(filepath.Ext(name), lookExt) {
 		return false

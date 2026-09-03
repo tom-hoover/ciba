@@ -500,18 +500,18 @@ func TestPreviewLooksPrefersWorkingDirectoryOverLibrary(t *testing.T) {
 
 // TestPreviewLooksIgnoresCompoundExtensions keeps the sheet out of trouble in a
 // real photo directory, which holds JSON that has nothing to do with looks —
-// skyburn writes <base>.recipe.json beside the images it renders. A look file is
-// <name>.json where <name> carries no further extension.
+// a companion tool writes <base>.recipe.json beside the images it renders. A
+// look file is <name>.json where <name> carries no further extension.
 func TestPreviewLooksIgnoresCompoundExtensions(t *testing.T) {
 	t.Chdir(t.TempDir())
 	t.Setenv(looksDirEnv, filepath.Join(t.TempDir(), "looks"))
 
-	// Exactly what skyburn leaves behind, and not a look at all.
+	// Exactly what a companion tool leaves behind, and not a look at all.
 	if err := os.WriteFile("square.recipe.json", []byte(`{"styles":[{"name":"deep-red"}]}`), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	// And a file that WOULD load cleanly if the extension rule let it through.
-	// This is the fixture that isolates the rule: skyburn's recipe above is
+	// This is the fixture that isolates the rule: the recipe file above is
 	// rejected by validation whether or not the rule exists, so on its own it
 	// tests nothing about the rule. A first version of this test used only that
 	// file and passed with the rule deleted.

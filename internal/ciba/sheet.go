@@ -10,7 +10,7 @@ import (
 // the results into one labelled image. Each label is exactly the string to
 // pass to -style.
 //
-// The layout lives in internal/sheet so both pipelines share one
+// The layout lives in darkroom/sheet so both pipelines share one
 // implementation of the cell geometry and label fitting.
 func ContactSheet(img image.Image, looks []Look, px int) image.Image {
 	names := make([]string, len(looks))

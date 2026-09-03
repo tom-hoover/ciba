@@ -245,7 +245,7 @@ func skipNotice(skipped int, lookName string) string {
 // warnf reports a non-fatal condition to stderr.
 //
 // It lived in apply.go beside renderFile and the worker pool until those moved
-// to internal/jobplan, which now warns for itself. The callers left in this
+// to darkroom/jobplan, which now warns for itself. The callers left in this
 // command are the four in lookfile.go, so it sits here beside fatalf.
 func warnf(format string, args ...any) {
 	fmt.Fprintf(os.Stderr, "ciba: warning: "+format+"\n", args...)
