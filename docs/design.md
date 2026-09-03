@@ -19,7 +19,9 @@ Design, 2026-08-28.
 > | `internal/sheet` | `github.com/tom-hoover/darkroom/sheet` — public |
 > | `internal/jobplan` | `github.com/tom-hoover/darkroom/jobplan` — public |
 > | `internal/bw` | belongs to a separate, unpublished tool — not part of this repository |
-> | `tasks/lessons .md` | an internal engineering log kept with that private tool — not published here |
+> | `cmd/ciba/` | this repository's root; the command is the module |
+> | `cmd/ciba/scan.go`, `cmd/ciba/apply.go` (§3) | `github.com/tom-hoover/darkroom/jobplan`, where the job planning and atomic writing now live, shared with the other tools |
+> | `tasks/lessons .md` | an engineering log kept in the private monorepo — not published here |
 
 ## 1. What this is
 
